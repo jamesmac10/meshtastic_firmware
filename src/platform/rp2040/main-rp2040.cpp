@@ -1,4 +1,5 @@
 #include "configuration.h"
+#include "platform/rp2040/rp2040Watchdog.h"
 #include <hardware/clocks.h>
 #include <hardware/pll.h>
 #include <pico/stdlib.h>
@@ -8,6 +9,13 @@
 void setBluetoothEnable(bool enable)
 {
     // not needed
+}
+
+// loop code specific to RP2040 targets
+void rp2040Loop()
+{
+    // Feed the dog
+    rp2040Watchdog->reset();
 }
 
 void cpuDeepSleep(uint32_t msecs)
@@ -59,6 +67,9 @@ void rp2040Setup()
     LOG_INFO("clk_adc  = %dkHz\n", f_clk_adc);
     LOG_INFO("clk_rtc  = %dkHz\n", f_clk_rtc);
 #endif
+
+    LOG_DEBUG("rp2040Setup(): Initializing watchdog\n");
+    rp2040Watchdog = new Rp2040Watchdog();
 }
 
 void enterDfuMode()
