@@ -724,6 +724,10 @@ void setup()
     LOG_DEBUG("Starting audio thread\n");
     audioThread = new AudioThread();
 #endif
+
+    config.lora.next_hop_routing = true; // FIXME - remove this before merging
+    LOG_INFO("USING NEXT-HOP ROUTING\n");
+
     service = new MeshService();
     service->init();
 

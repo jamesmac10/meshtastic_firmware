@@ -693,6 +693,10 @@ typedef struct _meshtastic_MeshPacket {
     /* Hop limit with which the original packet started. Sent via LoRa using three bits in the unencrypted header.
  When receiving a packet, the difference between hop_start and hop_limit gives how many hops it traveled. */
     uint8_t hop_start;
+    /* Last byte of the node number of the node that should be used as the next hop in routing. */
+    uint8_t next_hop;
+    /* Last byte of the node number of the node that will relay/relayed this packet. */
+    uint8_t relay_node;
     /* Records the public key the packet was encrypted with, if applicable. */
     meshtastic_MeshPacket_public_key_t public_key;
     /* Indicates whether the packet was en/decrypted using PKI */
@@ -1203,8 +1207,10 @@ extern "C" {
 #define meshtastic_MeshPacket_delayed_tag        13
 #define meshtastic_MeshPacket_via_mqtt_tag       14
 #define meshtastic_MeshPacket_hop_start_tag      15
-#define meshtastic_MeshPacket_public_key_tag     16
-#define meshtastic_MeshPacket_pki_encrypted_tag  17
+#define meshtastic_MeshPacket_next_hop_tag       16
+#define meshtastic_MeshPacket_relay_node_tag     17
+#define meshtastic_MeshPacket_public_key_tag     18
+#define meshtastic_MeshPacket_pki_encrypted_tag  19
 #define meshtastic_NodeInfo_num_tag              1
 #define meshtastic_NodeInfo_user_tag             2
 #define meshtastic_NodeInfo_position_tag         3
@@ -1391,8 +1397,10 @@ X(a, STATIC,   SINGULAR, INT32,    rx_rssi,          12) \
 X(a, STATIC,   SINGULAR, UENUM,    delayed,          13) \
 X(a, STATIC,   SINGULAR, BOOL,     via_mqtt,         14) \
 X(a, STATIC,   SINGULAR, UINT32,   hop_start,        15) \
-X(a, STATIC,   SINGULAR, BYTES,    public_key,       16) \
-X(a, STATIC,   SINGULAR, BOOL,     pki_encrypted,    17)
+X(a, STATIC,   SINGULAR, UINT32,   next_hop,         16) \
+X(a, STATIC,   SINGULAR, UINT32,   relay_node,       17)
+X(a, STATIC,   SINGULAR, BYTES,    public_key,       18) \
+X(a, STATIC,   SINGULAR, BOOL,     pki_encrypted,    19)
 #define meshtastic_MeshPacket_CALLBACK NULL
 #define meshtastic_MeshPacket_DEFAULT NULL
 #define meshtastic_MeshPacket_payload_variant_decoded_MSGTYPE meshtastic_Data
