@@ -1085,7 +1085,7 @@ const char *DETECTED_MESSAGE = "%s detected, using %s Module\n";
 
 GnssModel_t GPS::probe(int serialSpeed)
 {
-#if defined(ARCH_NRF52) || defined(ARCH_PORTDUINO) || defined(ARCH_STM32WL)
+#if defined(ARCH_NRF52) || defined(ARCH_PORTDUINO) || defined(ARCH_STM32WL) || defined(ARCH_APOLLO3)
     _serial_gps->end();
     _serial_gps->begin(serialSpeed);
 #elif defined(ARCH_RP2040)
@@ -1156,7 +1156,7 @@ GnssModel_t GPS::probe(int serialSpeed)
         _serial_gps->write(_message_prt, sizeof(_message_prt));
         delay(500);
         serialSpeed = 9600;
-#if defined(ARCH_NRF52) || defined(ARCH_PORTDUINO) || defined(ARCH_STM32WL)
+#if defined(ARCH_NRF52) || defined(ARCH_PORTDUINO) || defined(ARCH_STM32WL) || defined(ARCH_APOLLO3)
         _serial_gps->end();
         _serial_gps->begin(serialSpeed);
 #elif defined(ARCH_RP2040)
