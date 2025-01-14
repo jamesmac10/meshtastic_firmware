@@ -60,7 +60,7 @@ jobs:
           echo "/etc/meshtasticd/config.yaml" > .debpkg/DEBIAN/conffiles
           chmod +x .debpkg/DEBIAN/conffiles
 
-      - uses: jiro4989/build-deb-action@v3
+      - uses: jiro4989/build-deb-action@v4
         with:
           package: meshtasticd
           package_root: .debpkg
